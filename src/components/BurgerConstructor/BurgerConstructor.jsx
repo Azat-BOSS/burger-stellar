@@ -7,6 +7,7 @@ import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-co
 const BurgerConstructor = ({data}) => {
   return (  
     <section className={constructorStyles.constructor}>
+      <h2 className={constructorStyles.constructor__title }>Состав вашего бургера</h2>
       <div className={constructorStyles.constructor__container}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px'}}>
           {data.map(detail => (
@@ -41,7 +42,10 @@ const BurgerConstructor = ({data}) => {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    price: PropTypes.number
+})
 }
 
 export default BurgerConstructor;

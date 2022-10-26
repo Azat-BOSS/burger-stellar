@@ -4,7 +4,18 @@
   max-height: 630px;
   display: flex;
   flex-direction: column;
-  margin-top: 40px;
+}
+
+.constructor__title {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  color: #f2f2f3;
+  margin-bottom: 20px;
 }
 
 .constructor__container {

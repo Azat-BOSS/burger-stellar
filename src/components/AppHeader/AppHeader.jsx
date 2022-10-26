@@ -9,14 +9,20 @@ const AppHeader = () => {
     <header className={headerStyles.header}>
 
         <div className={headerStyles.header__buttons}>
-          <button className={headerStyles.header__button} onClick={() => setClicked("one")}>
+          <a href="/#" className="header__link">
+            <button className={headerStyles.header__button} onClick={() => setClicked("one")}>
             <BurgerIcon type={clicked === "one" ? "primary" : "secondary"}/>Конструктор</button>
-          <button className={headerStyles.header__button} onClick={() => setClicked("two")}>
+          </a>
+          <a href="/#" className="header__link">
+            <button className={headerStyles.header__button} onClick={() => setClicked("two")}>
             <ListIcon type={clicked === "two" ? "primary" : "secondary"} />Лента заказов</button>
+          </a>
         </div>
           <Logo />
-        <button className={headerStyles.header__button} onClick={() => setClicked("three")}>
+        <a href="/#" className="header__link">
+          <button className={headerStyles.header__button} onClick={() => setClicked("three")}>
           <ProfileIcon type={clicked === "three" ? "primary" : "secondary"} />Личный кабинет</button>
+        </a>
 
     </header>
   );
