@@ -42,10 +42,12 @@ const BurgerConstructor = ({data}) => {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.shape({
+  data: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
-    price: PropTypes.number
-})
+    price: PropTypes.number,
+    image: PropTypes.string,
+    detail: PropTypes.number
+  }))
 }
 
 export default BurgerConstructor;
