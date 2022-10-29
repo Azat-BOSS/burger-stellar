@@ -1,29 +1,29 @@
 import React from "react";
 import ingModalStyle from "./ingredientModal.module.css"
 
-const IngredientModal = ({ingredient}) => {
+const IngredientModal = ({modalData}) => {
   return ( 
     <div className={ingModalStyle.ingredient__modal}>
       <h4 className={ingModalStyle.ingredient__title}>Детали ингредиента</h4>
-      <img src="" alt="ingredient" className={ingModalStyle.ingredient__modal__img}/>
+      <img src={modalData.image} alt="ingredient" className={ingModalStyle.ingredient__modal__img}/>
       <div className={ingModalStyle.ingredient__structure}>
-        <h3 className={ingModalStyle.ingredient__title__name}>Биокотлета из марсианской Магнолии</h3>
+        <h3 className={ingModalStyle.ingredient__title__name}>{modalData.name}</h3>
         <div className={ingModalStyle.ingredient__block__container}>
-          <span className="ingredient__block">
+          <span className={ingModalStyle.ingredient__block}>
             <h5 className={ingModalStyle.ingredient__block__name}>Калории, ккал</h5>
-            <p className={ingModalStyle.ingredient__block__num}></p>
+            <p className={ingModalStyle.ingredient__block__num}>{modalData.calories}</p>
           </span>
-          <span className="ingredient__block">
+          <span className={ingModalStyle.ingredient__block}>
             <h5 className={ingModalStyle.ingredient__block__name}>Белки, г</h5>
-            <p className={ingModalStyle.ingredient__block__num}></p>
+            <p className={ingModalStyle.ingredient__block__num}>{modalData.proteins}</p>
           </span>
-          <span className="ingredient__block">
+          <span className={ingModalStyle.ingredient__block}>
             <h5 className={ingModalStyle.ingredient__block__name}>Жиры, г</h5>
-            <p className={ingModalStyle.ingredient__block__num}></p>
+            <p className={ingModalStyle.ingredient__block__num}>{modalData.fat}</p>
           </span>
-          <span className="ingredient__block">
+          <span className={ingModalStyle.ingredient__block}>
             <h5 className={ingModalStyle.ingredient__block__name}>Углеводы, г</h5>
-            <p className={ingModalStyle.ingredient__block__num}></p>
+            <p className={ingModalStyle.ingredient__block__num}>{modalData.carbohydrates}</p>
           </span>
         </div>
       </div>

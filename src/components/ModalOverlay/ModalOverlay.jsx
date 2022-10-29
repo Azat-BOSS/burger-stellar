@@ -1,12 +1,10 @@
 import React from "react";
 import overlayStyles from "./modalOverlay.module.css"
 
-
-const ModalOverlay = () => {
+const ModalOverlay = ({setState}) => {
   return ( 
-    <div className={overlayStyles.modal__overlay}>
-
-    </div>
+    <button className={overlayStyles.modal__overlay} onClick={() => setState(true)}>
+    </button>
   );
 }
  

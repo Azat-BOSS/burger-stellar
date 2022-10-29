@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   opacity: 1;
+  transition: all 0.5s ease;
 }
 
 .modal__container__disabled {
@@ -16,6 +17,7 @@
   top: 0;
   position: absolute;
   z-index: -100;
+  transform: perspective(400px) translateY(50%) rotateX(-45deg);
 }
 .modal {
   width: 100%;

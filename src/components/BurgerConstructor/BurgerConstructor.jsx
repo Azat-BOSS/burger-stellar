@@ -2,9 +2,12 @@ import React from "react";
 import PropTypes from "prop-types"
 import Order from "../OrderDetails/Order";
 import constructorStyles from "./constructor.module.css"
-import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import Modal from "../Modal/Modal";
+import ConstructorModal from "../ConstructorModal/ConstructorModal";
 
-const BurgerConstructor = ({data}) => {
+const BurgerConstructor = ({data, construct, setConstruct}) => {
+
   return (  
     <section className={constructorStyles.constructor}>
       <h2 className={constructorStyles.constructor__title }>Состав вашего бургера</h2>
@@ -33,10 +36,14 @@ const BurgerConstructor = ({data}) => {
           <p className={constructorStyles.constructor__number}>610</p>
           <CurrencyIcon type="primary"/>
         </div>
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={() => setConstruct(false)}>
           Нажми на меня
         </Button>
       </div>
+
+      <Modal state={construct} setState={setConstruct}>
+        <ConstructorModal/> 
+      </Modal>
     </section>
   );
 }

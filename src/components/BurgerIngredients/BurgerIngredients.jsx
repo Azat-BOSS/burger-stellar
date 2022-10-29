@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import brgIngredientsStyles from "./brgIngredients.module.css"
 import IngredientsDetails from "../IngredientDetails/IngredientsDetails";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -6,9 +6,8 @@ import Modal from "../Modal/Modal";
 import PropTypes from "prop-types"
 import IngredientModal from "../IngredientModal/IngredientModal";
 
-const BurgerIngredients = ({data}) => {
+const BurgerIngredients = ({data, modalData, setModalData, state, setState}) => {
   const [current, setCurrent] = React.useState('one')
-  const [state, setState] = useState(true)
 
     return ( 
       <section className={brgIngredientsStyles.ingredients}>
@@ -30,7 +29,7 @@ const BurgerIngredients = ({data}) => {
         <h3 className={brgIngredientsStyles.ingredients__container__title}>Булки</h3>
         <div className={brgIngredientsStyles.ingredients__block}>
         {data.map((block) => (
-          block.type === "bun" && <button key={block._id} onClick={() => setState(false)}>
+          block.type === "bun" && <button key={block._id} onClick={() => {setState(false); setModalData(block)}}>
             <IngredientsDetails image={block.image} text={block.name} price={block.price}/>
           </button> 
         ))}
@@ -38,20 +37,22 @@ const BurgerIngredients = ({data}) => {
         <h3 className={brgIngredientsStyles.ingredients__container__title}>Соусы</h3>
         <div className={brgIngredientsStyles.ingredients__block}>
         {data.map(block => (
-          block.type === "sauce" && <IngredientsDetails image={block.image} text={block.name} price={block.price} key={block._id}/>
+          block.type === "sauce" && <button key={block._id} onClick={() => {setState(false); setModalData(block); setCurrent("two")}}>
+            <IngredientsDetails image={block.image} text={block.name} price={block.price}/>
+          </button> 
         ))}
         </div>
         <h3 className={brgIngredientsStyles.ingredients__container__title}>Начинки</h3>
         <div className={brgIngredientsStyles.ingredients__block}>
         {data.map(block => (
-          <IngredientsDetails image={block.image} text={block.name} price={block.price} key={block._id}/>
+          <button key={block._id} onClick={() => {setState(false); setModalData(block)}}>
+            <IngredientsDetails image={block.image} text={block.name} price={block.price}/>
+          </button> 
         ))}
         </div>
       </div> 
-       {/* modal */}
-          
           <Modal state={state} setState={setState}>
-           <IngredientModal/>
+            <IngredientModal modalData={modalData}/>
           </Modal>
 
       </section>
