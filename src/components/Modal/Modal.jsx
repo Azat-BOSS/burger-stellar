@@ -18,18 +18,21 @@ const Modal = ({children, state, setState}) => {
   }, [setState])
 
   return ReactDOM.createPortal( 
-    <div className={state === false ? modalStyles.modal__container  : modalStyles.modal__container__disabled}>
-      <ModalOverlay setState={setState}/>
+    <>
+    <div className={state === false ? modalStyles.modal__container : modalStyles.modal__container__disabled}>
       <div className={modalStyles.modal}>
       <button className={modalStyles.button__close} onClick={() => setState(true)}>
         <CloseIcon type="primary"/>
       </button>
         {children}
       </div>
-    </div>,
+      <ModalOverlay setState={setState} state={state}/>
+    </div>
+    </>,
     
     document.getElementById('modal')
   );
 }
+
 
 export default Modal;

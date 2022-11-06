@@ -56,3 +56,8 @@
   height: 492px;
   width: 8px;
 }
+
+.ingredients__tab {
+  display: flex;
+  margin-bottom: 20px;
+}

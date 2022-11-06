@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState }  from "react";
 import PropTypes from "prop-types"
 import Order from "../OrderDetails/Order";
 import constructorStyles from "./constructor.module.css"
@@ -6,26 +6,27 @@ import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-co
 import Modal from "../Modal/Modal";
 import ConstructorModal from "../ConstructorModal/ConstructorModal";
 
-const BurgerConstructor = ({data, construct, setConstruct}) => {
+const BurgerConstructor = ({dataConstruct}) => {
+  const [construct, setConstruct] = useState(true)
 
   return (  
     <section className={constructorStyles.constructor}>
       <h2 className={constructorStyles.constructor__title }>Состав вашего бургера</h2>
       <div className={constructorStyles.constructor__container}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px'}}>
-          {data.map(detail => (
+          {dataConstruct.map(detail => (
             detail.type === "bun" && <Order position={"top"} locked={true} name={detail.name} price={detail.price} image={detail.image} key={detail._id}/>
           ))}
 
-          {data.map(detail => (
+          {dataConstruct.map(detail => (
             detail.type === "main" && <Order locked={false} name={detail.name} price={detail.price} image={detail.image} key={detail._id}/>
           ))}
 
-          {data.map(detail => (
+          {dataConstruct.map(detail => (
             detail.type === "sauce" && <Order locked={false} name={detail.name} price={detail.price} image={detail.image} key={detail._id}/>
           ))}
 
-          {data.map(detail => (
+          {dataConstruct.map(detail => (
             detail.type === "bun" && <Order position={"bottom"} locked={true} name={detail.name} price={detail.price} image={detail.image} key={detail._id}/>
           ))}
         </div>
@@ -49,11 +50,12 @@ const BurgerConstructor = ({data, construct, setConstruct}) => {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
+  dataConstruct: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
     image: PropTypes.string,
-    detail: PropTypes.number
+    detail: PropTypes.number,
+    _id: PropTypes.string,
   }))
 }
 
