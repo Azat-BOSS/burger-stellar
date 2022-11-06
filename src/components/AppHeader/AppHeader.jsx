@@ -19,10 +19,10 @@ const AppHeader = () => {
           </a>
         </div>
           <Logo />
-        <a href="/#" className="header__link">
-          <button className={headerStyles.header__button} onClick={() => setClicked("three")}>
-          <ProfileIcon type={clicked === "three" ? "primary" : "secondary"} />Личный кабинет</button>
-        </a>
+          <a href="/#" className="header__link">
+            <button className={headerStyles.header__button} onClick={() => setClicked("three")}>
+            <ProfileIcon type={clicked === "three" ? "primary" : "secondary"} />Личный кабинет</button>
+          </a>
 
     </header>
   );
