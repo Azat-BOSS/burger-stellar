@@ -12,6 +12,12 @@ code {
     monospace;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 button {
   background-color: transparent;
   border: none;
@@ -37,7 +43,6 @@ a {
   padding: 0;
   text-decoration: none;
 }
-
 /* fonts */
 
 @font-face {

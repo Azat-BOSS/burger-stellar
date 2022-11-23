@@ -1,5 +1,6 @@
 import React from "react";
 import ingModalStyle from "./ingredientModal.module.css"
+import PropTypes from "prop-types"
 
 const IngredientModal = ({modalData}) => {
   return ( 
@@ -30,5 +31,7 @@ const IngredientModal = ({modalData}) => {
     </div>
   );
 }
+
+
  
 export default IngredientModal;
