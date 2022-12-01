@@ -1,13 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import orderStyles from "./order.module.css"
 import PropTypes from "prop-types"
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ConstructContext } from "../../services/appContext";
+import { removeConstructElement } from "../../services/actions/action";
+import { useDispatch } from "react-redux";
 
 const Order = ({position, locked, name, price, image, id}) => {
-  const { removeBurgerConstruct } = useContext(ConstructContext)
+  const dispatch = useDispatch()
   return ( 
-    <div className={position === "top" || position === "bottom" ? orderStyles.order : null}>
+    <div  className={position === "top" || position === "bottom" ? orderStyles.order : null}>
       {position !== "top" && position !== "bottom" ? <DragIcon type="primary" style={{display: "none"}}/> : null}
       <ConstructorElement
       type={position}
@@ -15,7 +16,7 @@ const Order = ({position, locked, name, price, image, id}) => {
       text={name}
       price={price}
       thumbnail={image}
-      handleClose={() => removeBurgerConstruct(id)}
+      handleClose={() =>  dispatch(removeConstructElement(id))}
     />
   </div>
   );

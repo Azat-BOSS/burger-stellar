@@ -1,15 +1,37 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types"
 import Order from "../OrderDetails/Order";
 import constructorStyles from "./constructor.module.css"
 import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../Modal/Modal";
 import ConstructorModal from "../ConstructorModal/ConstructorModal";
-import { ConstructContext } from "../../services/appContext";
 import { apiUrl } from "../../utils/Api";
+import { checkResult } from "../../utils/Api";
 
+import { getOrderNumber, sumTotalPrice } from "../../services/actions/action";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
+
+import { addConstructElement } from "../../services/actions/action";
 const BurgerConstructor = () => {
-  const { construct, setConstruct, burger, price, idPost, setPrice, setOrderNumber} = useContext(ConstructContext)
+  const dispatch = useDispatch()
+  const idPost = useSelector(state => state.order.idPost)
+  const burger = useSelector(state => state.getConstructor.construct)
+  const price = useSelector(state => state.getConstructor.price)
+  const data = useSelector(state => state.getRequest.data)
+  const [construct, setConstruct] = useState(true)
+  console.log(idPost);
+    const [, drop] = useDrop({
+      accept: "ingredElement",
+      drop: (item) => {
+        addBlock(item)
+      }
+    })
+
+    const addBlock = (id) => {
+      dispatch(addConstructElement(...data.filter(el => el._id === id.id)))
+    }
+
 
     const sendDataConstruct = (ingredArrayId) => {
       return fetch(`${apiUrl}/orders`, {
@@ -21,22 +43,22 @@ const BurgerConstructor = () => {
         ingredients: ingredArrayId
       })
     })
-    .then(res => res.json())
-    .then(data => setOrderNumber(data.order.number))
+    .then(res => checkResult(res))
+    .then(data => dispatch(getOrderNumber(data.order.number)))
+    .catch((res) => console.log(res))
     }
-
+    
   useEffect(() => {
     const findPrice = () => {
-      const total = burger.reduce((prev, curr) => prev + curr.price, 0)
-      setPrice(total)  
+      dispatch(sumTotalPrice())
     } 
     findPrice()
-  }, [burger, setPrice])
+  }, [burger, dispatch])
 
   return (  
     <section className={constructorStyles.constructor}>
       <h2 className={constructorStyles.constructor__title }>Состав вашего бургера</h2>
-      <div className={constructorStyles.constructor__container}>
+      <div className={constructorStyles.constructor__container} ref={drop}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px'}}>
           {burger.map(detail => (detail.type === "bun" && <Order position={"top"} locked={true} name={detail.name} price={detail.price} image={detail.image} key={detail._id}/>))}
 

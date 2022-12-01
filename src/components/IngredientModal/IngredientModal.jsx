@@ -1,8 +1,9 @@
 import React from "react";
 import ingModalStyle from "./ingredientModal.module.css"
-import PropTypes from "prop-types"
+import { useSelector } from "react-redux";
 
-const IngredientModal = ({modalData}) => {
+const IngredientModal = () => {
+  const modalData = useSelector(state => state.ingredDetails.ingredData)
   return ( 
     <div className={ingModalStyle.ingredient__modal}>
       <h4 className={ingModalStyle.ingredient__title}>Детали ингредиента</h4>
