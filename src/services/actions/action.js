@@ -6,18 +6,27 @@ import {
   GET_INGREDIENT_DETAILS,
   GET_ID_INGREDIENT,
   GET_ORDER_NUMBER,
-  GET_TOTAL_PRICE
+  GET_TOTAL_PRICE,
+  GET_BUN_CONSTRUCTOR,
+  SORT_INGREDIENTS
 } from "../constants/constants.js";
+
 
 export const getInfo = () => {
   return function(dispatch) {
     fetch(`${apiUrl}/ingredients`)
       .then(res => checkResult(res))
-      .then(res => dispatch({
-        type: GET_INGREDIENTS_SUCCESS,
-        data: res.data
-      }))
+      .then(res => dispatch(
+        getDataIngredients(res.data, )
+      ))
       .catch(res => console.log(res))
+  }
+}
+
+export const getDataIngredients = (payload) => {
+  return {
+    type: GET_INGREDIENTS_SUCCESS,
+    payload
   }
 }
 
@@ -59,6 +68,20 @@ export const getOrderNumber = (payload) => {
 export const sumTotalPrice = (payload) => {
   return {
     type: GET_TOTAL_PRICE,
+    payload
+  }
+}
+
+export const getBunElement = (payload) => {
+  return {
+    type: GET_BUN_CONSTRUCTOR,
+    payload
+  }
+}
+
+export const sortIngredients = (payload) => {
+  return {
+    type: SORT_INGREDIENTS,
     payload
   }
 }

@@ -6,7 +6,6 @@ import Modal from "../Modal/Modal";
 import IngredientModal from "../IngredientModal/IngredientModal";
 import { useDispatch, useSelector } from "react-redux";
 import { getInfo } from "../../services/actions/action";
-
 import { getIdIngred, getIngredDataElement } from "../../services/actions/action";
 
 const BurgerIngredients = () => {
@@ -28,8 +27,7 @@ const BurgerIngredients = () => {
       element.current.scrollIntoView({
         behavior: "smooth"
       })
-    }
-
+    } 
     return ( 
       <section className={brgIngredientsStyles.ingredients}>
         <h1 className={brgIngredientsStyles.ingredients__title}>Соберите бургер</h1>
@@ -59,31 +57,30 @@ const BurgerIngredients = () => {
                 dispatch(getIdIngred(block._id))
               }}
             >
-              <IngredientsDetails image={block.image} text={block.name} price={block.price} id={block._id}/>
+              <IngredientsDetails image={block.image} text={block.name} price={block.price} item={block}/>
             </li> 
           ))}
           </ul>
 
           <h3 id="sauces" ref={blockSauces} className={brgIngredientsStyles.ingredients__container__title}>Соусы</h3>
           <ul className={brgIngredientsStyles.ingredients__block} aria-labelledby="sauces">
-          {data.map(block => (
+          {data.map((block, ) => (
             block.type === "sauce" && <li key={block._id} onClick={() => {
               setIngred(false); 
               dispatch(getIngredDataElement(block)); 
-              setCurrent("two");  
               }}
               onMouseDown={() => {
                 dispatch(getIdIngred(block._id))
               }}
             >
-              <IngredientsDetails image={block.image} text={block.name} price={block.price} id={block._id}/>
+              <IngredientsDetails image={block.image} text={block.name} price={block.price} item={block}/>
             </li> 
           ))}
           </ul>
 
           <h3 id="stuffing" ref={blockMain} className={brgIngredientsStyles.ingredients__container__title}>Начинки</h3>
           <ul className={brgIngredientsStyles.ingredients__block}>
-          {data.map(block => (
+          {data.map((block, ) => (
             block.type === "main" && <li key={block._id} onClick={() => {
               setIngred(false);
               dispatch(getIngredDataElement(block)); 
@@ -92,7 +89,7 @@ const BurgerIngredients = () => {
                 dispatch(getIdIngred(block._id))
               }}
             >
-              <IngredientsDetails image={block.image} text={block.name} price={block.price} id={block._id}/>
+              <IngredientsDetails image={block.image} text={block.name} price={block.price} item={block} />
             </li>
           ))}
           </ul>
@@ -104,5 +101,7 @@ const BurgerIngredients = () => {
       </section>
     );
   }
+
+
 
 export default BurgerIngredients
