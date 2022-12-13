@@ -4,6 +4,7 @@
   align-items: center;
   row-gap: 8px;
   margin-top: 24px;
+  position: relative;
 }
 
 .ingredient__block__number {

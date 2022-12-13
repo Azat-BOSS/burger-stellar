@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ingredientStyles from "./ingredient.module.css"
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { useDrag } from "react-dnd";
-
+import { useSelector } from "react-redux";
 
 const IngredientsDetails = ({image, text, price, item}) => {
+  const getBuns = useSelector(state => state.getConstructor.constructBun)
+  const elemChosen = useSelector(state => state.getConstructor.construct)
+    .filter(el => item._id === el._id)
+  
   const [{isDragging}, drag] = useDrag({
     type: "ingredElement",
     item: item,
@@ -15,9 +19,16 @@ const IngredientsDetails = ({image, text, price, item}) => {
   })
 
   const opacity = isDragging ? .6 : 1
-
+  
+  const count = useMemo(() => {
+    if(item.type === "bun") {
+      return getBuns && getBuns._id === item._id ? 2 : 0
+    }
+    return elemChosen.length
+  })
   return ( 
     <div className={ingredientStyles.ingredient} ref={drag} style={{ opacity }}>
+      {count === 0 ? null : (<Counter count={count} size="default" extraClass="m-1"/>)}
       <img src={image} alt="картинка" className="ingredient__image"/>
       <div className={ingredientStyles.ingredient__block__number}>
         <p className={ingredientStyles.ingredient__number}>{price}</p>

@@ -52,10 +52,8 @@ const BurgerIngredients = () => {
               onClick={() => {
               setIngred(false); 
               dispatch(getIngredDataElement(block)); 
+              dispatch(getIdIngred(block._id))
               }} 
-              onMouseDown={() => {
-                dispatch(getIdIngred(block._id))
-              }}
             >
               <IngredientsDetails image={block.image} text={block.name} price={block.price} item={block}/>
             </li> 
@@ -68,9 +66,7 @@ const BurgerIngredients = () => {
             block.type === "sauce" && <li key={block._id} onClick={() => {
               setIngred(false); 
               dispatch(getIngredDataElement(block)); 
-              }}
-              onMouseDown={() => {
-                dispatch(getIdIngred(block._id))
+              dispatch(getIdIngred(block._id))
               }}
             >
               <IngredientsDetails image={block.image} text={block.name} price={block.price} item={block}/>
@@ -84,9 +80,7 @@ const BurgerIngredients = () => {
             block.type === "main" && <li key={block._id} onClick={() => {
               setIngred(false);
               dispatch(getIngredDataElement(block)); 
-              }} 
-              onMouseDown={() => {
-                dispatch(getIdIngred(block._id))
+              dispatch(getIdIngred(block._id))
               }}
             >
               <IngredientsDetails image={block.image} text={block.name} price={block.price} item={block} />

@@ -8,7 +8,7 @@ import {
   GET_ORDER_NUMBER,
   GET_TOTAL_PRICE,
   GET_BUN_CONSTRUCTOR,
-  SORT_INGREDIENTS
+  SORT_INGREDIENTS,
 } from "../constants/constants.js";
 
 
@@ -85,3 +85,6 @@ export const sortIngredients = (payload) => {
     payload
   }
 }
+
+
+

@@ -19,6 +19,8 @@ const ingredientsDefault = {
 const constructDefault = {
   constructBun: [],
   construct: [],
+  bunPrice: 0,
+  totalPrice: 0,
   price: 0,
 }
 
@@ -30,8 +32,6 @@ const orderDefault = {
   idPost: [],
   orderNumber: 0
 }
-
-
 
 const getIngredients = (state = ingredientsDefault, action) => {
   switch (action.type) {
@@ -65,14 +65,13 @@ const getConstructorEl = (state = constructDefault, action) => {
     case GET_TOTAL_PRICE:
       return {
         ...state, 
-        price: state.construct.reduce((prev, curr) => curr.type === "bun" ? (prev + curr.price) : prev + curr.price, 0)
+        price: state.construct.reduce((prev, curr) => curr.type === "bun" ? (prev + curr.price) : prev + curr.price, 0),
       }
     case SORT_INGREDIENTS:
       return {
         ...state,
         construct: action.payload
       }
-
     default:
       return state
     }
@@ -84,7 +83,6 @@ const viewedIngredient = (state = ingredDetailsDefault, action) => {
       return {
         ingredData: action.payload
       }
-  
     default:
       return state
   }
