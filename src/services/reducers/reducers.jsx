@@ -10,7 +10,6 @@ import {
   GET_BUN_CONSTRUCTOR,
   SORT_INGREDIENTS
 } from "../constants/constants.js";
-import { v4 as uuidv4 } from 'uuid';
 
 const ingredientsDefault = {
   data: []
@@ -50,7 +49,7 @@ const getConstructorEl = (state = constructDefault, action) => {
     case GET_CONSTRUCT_SUCCESS:
       return {
         ...state,
-        construct: [...state.construct, {...action.payload, id: uuidv4()}],
+        construct: [...state.construct, action.payload],
       }
     case GET_BUN_CONSTRUCTOR: 
       return {

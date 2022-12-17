@@ -10,6 +10,24 @@ import {
   GET_BUN_CONSTRUCTOR,
   SORT_INGREDIENTS,
 } from "../constants/constants.js";
+import { v4 as uuidv4 } from 'uuid';
+
+export const sendDataConstruct = (ingredArrayId) => {
+  return function (dispatch) {
+    fetch(`${apiUrl}/orders`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ingredients: ingredArrayId
+      })
+    })
+      .then(res => checkResult(res))
+      .then(data => dispatch(getOrderNumber(data.order.number)))
+      .catch((res) => console.log(res))
+  } 
+}
 
 
 export const getInfo = () => {
@@ -31,9 +49,10 @@ export const getDataIngredients = (payload) => {
 }
 
 export const addConstructElement = (payload) => {
+  const id = uuidv4()
   return {
     type: GET_CONSTRUCT_SUCCESS,
-    payload
+    payload: {...payload, id}
   }
 }
 

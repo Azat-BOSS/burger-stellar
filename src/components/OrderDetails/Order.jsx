@@ -52,10 +52,10 @@ const Order = ({position, locked, name, price, image, index, idEl, moveIngredien
   })
   const opacity = isDragging ? 0 : 1
   drag(drop(ref))
-
+  console.log(name)
   return ( 
     <div ref={ref} data-handler-id={handlerId} className={position === "top" || position === "bottom" ? orderStyles.order : null} style={{opacity}}>
-      {position !== "top" && position !== "bottom" ? <DragIcon type="primary" style={{display: "none"}}/> : null}
+      {position !== "top" && position !== "bottom" ? <DragIcon type="primary"/> : null}
       <ConstructorElement
       type={position}
       isLocked={locked}
@@ -65,7 +65,6 @@ const Order = ({position, locked, name, price, image, index, idEl, moveIngredien
       handleClose={() => dispatch(removeConstructElement(idEl))}
     />
   </div>
-
   );
 }
  

@@ -3,9 +3,14 @@ import constructorStyles from "./constructor.module.css"
 import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../Modal/Modal";
 import ConstructorModal from "../ConstructorModal/ConstructorModal";
-import { apiUrl } from "../../utils/Api";
-import { checkResult } from "../../utils/Api";
-import { getOrderNumber, sumTotalPrice, addConstructElement, getBunElement, sortIngredients } from "../../services/actions/action";
+import {
+  sumTotalPrice,
+  addConstructElement,
+  getBunElement,
+  sortIngredients,
+  getIdIngred,
+  sendDataConstruct
+} from "../../services/actions/action";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop} from "react-dnd";
 import Order from "../OrderDetails/Order";
@@ -17,21 +22,7 @@ const BurgerConstructor = () => {
   const price = useSelector(state => state.getConstructor.price)
   const data = useSelector(state => state.getRequest.data)
   const burgerElement = useSelector(state => state.getConstructor.constructBun)
-  const sendDataConstruct = (ingredArrayId) => {
-    return fetch(`${apiUrl}/orders`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ingredients: ingredArrayId
-      })
-    })
-      .then(res => checkResult(res))
-      .then(data => dispatch(getOrderNumber(data.order.number)))
-      .catch((res) => console.log(res))
-  }
-  
+
   useEffect(() => {
     const findPrice = () => {
       dispatch(sumTotalPrice())
@@ -39,13 +30,12 @@ const BurgerConstructor = () => {
     findPrice()
   }, [burger, dispatch])
 
-  
   const [, drop] = useDrop({
     accept: "ingredElement",
     drop: (item) => {
       item.type === "bun"
         ? dispatch(getBunElement({ ...item}))
-        : addBlock(item)
+        : addBlock(item); dispatch(getIdIngred(item._id))
     }
   })
   
@@ -74,17 +64,19 @@ const BurgerConstructor = () => {
       dispatch(sortIngredients(newArray))
     }
   }, [burger, dispatch])
+
   
+
   return (
     <section className={constructorStyles.constructor}>
       <h2 className={constructorStyles.constructor__title }>Состав вашего бургера</h2>
       <div className={constructorStyles.constructor__container} ref={drop}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px'}}>
+        <div className={constructorStyles.constructor__block__elements}>
           {burgerElement.length !== 0 &&
             <Order
               position={"top"}
               locked={true}
-              name={burgerElement.name + "вверх"}
+              name={burgerElement.name + " (вверх)"}
               image={burgerElement.image}
               price={burgerElement.price}
               key={burgerElement.id}
@@ -107,7 +99,7 @@ const BurgerConstructor = () => {
             <Order
               position={"bottom"}
               locked={true}
-              name={burgerElement.name + "низ"}
+              name={burgerElement.name + " (низ)"}
               image={burgerElement.image}
               price={burgerElement.price}
               key={burgerElement.id}
@@ -119,7 +111,7 @@ const BurgerConstructor = () => {
           <p className={constructorStyles.constructor__number}>{totalPrice}</p>
           <CurrencyIcon type="primary"/>
         </div>
-        <Button type="primary" size="medium" onClick={() => {setConstruct(false); sendDataConstruct(idPost)}}  htmlType="button">
+        <Button type="primary" size="medium" onClick={() => {setConstruct(false); dispatch(sendDataConstruct(idPost))}}  htmlType="button">
           Нажми на меня
         </Button>
       </div>
