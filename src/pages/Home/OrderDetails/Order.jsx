@@ -1,13 +1,15 @@
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { removeConstructElement } from "../../services/actions/action";
 import { useDrop, useDrag } from "react-dnd";
 import PropTypes from "prop-types"
 import orderStyles from "./order.module.css"
+import { removeConstructorElement } from "../../../services/reducers/HomeReducers/burgerConstructor";
+import { removeIdPost } from "../../../services/reducers/HomeReducers/orderThunk";
 
-const Order = ({position, locked, name, price, image, index, idEl, moveIngredient }) => {
+const Order = ({position, locked, name, price, image, index, idEl, moveIngredient, _id}) => {
   const dispatch = useDispatch()
+
   const ref = useRef(null)
   const [{ handlerId }, drop] = useDrop({
     accept: "constructorEL",
@@ -52,7 +54,7 @@ const Order = ({position, locked, name, price, image, index, idEl, moveIngredien
   })
   const opacity = isDragging ? 0 : 1
   drag(drop(ref))
-  console.log(name)
+
   return ( 
     <div ref={ref} data-handler-id={handlerId} className={position === "top" || position === "bottom" ? orderStyles.order : null} style={{opacity}}>
       {position !== "top" && position !== "bottom" ? <DragIcon type="primary"/> : null}
@@ -62,7 +64,7 @@ const Order = ({position, locked, name, price, image, index, idEl, moveIngredien
       text={name}
       price={price}
       thumbnail={image}
-      handleClose={() => dispatch(removeConstructElement(idEl))}
+      handleClose={() => {dispatch(removeConstructorElement(idEl)); dispatch(removeIdPost(_id))}}
     />
   </div>
   );
