@@ -6,10 +6,10 @@ import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
 
 const Ingredient = ({image, text, price, item}) => {
-  const getBuns = useSelector(state => state.getConstructor.constructBun)
-  const elemChosen = useSelector(state => state.getConstructor.construct)
-    .filter(el => item._id === el._id)
-  
+  const brgArr = useSelector(state => state.burgerConstructor.bunArr)
+  const constructorArr = useSelector(state => state.burgerConstructor.constructorArr)
+  .filter(el => item._id === el._id)
+
   const [{isDragging}, drag] = useDrag({
     type: "ingredElement",
     item: item,
@@ -17,18 +17,18 @@ const Ingredient = ({image, text, price, item}) => {
       isDragging: monitor.isDragging()
     })
   })
-
-  const opacity = isDragging ? .6 : 1
   
-  const count = useMemo(() => {
+   const count = useMemo(() => {
     if(item.type === "bun") {
-      return getBuns && getBuns._id === item._id ? 2 : 0
+      return brgArr && brgArr._id === item._id ? 2 : 0
     }
-    return elemChosen.length
+    return constructorArr.length
   }, )
+  
+  const opacity = isDragging ? .6 : 1
   return ( 
     <div className={ingredientStyles.ingredient} ref={drag} style={{ opacity }}>
-      {count === 0 ? null : (<Counter count={count} size="default" extraClass="m-1"/>)}
+      { count === 0 ? null : (<Counter  count={count} size="default" extraClass="m-1"/>)}
       <img src={image} alt="картинка" className="ingredient__image"/>
       <div className={ingredientStyles.ingredient__block__number}>
         <p className={ingredientStyles.ingredient__number}>{price}</p>

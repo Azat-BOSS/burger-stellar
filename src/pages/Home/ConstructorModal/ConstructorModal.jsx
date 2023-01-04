@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import doneImage from "../../images/icons/done.png"
+import doneImage from "../../../assets/icons/done.png"
 import constructStyles from "./constrModal.module.css"
 
 const ConstructorModal = () => {
-  const orderNumber = useSelector(state => state.order.orderNumber)
-  
+  const orderNumber = useSelector(state => state.orderRequestSlice.order)
+
   return ( 
    <div className={constructStyles.constr__modal}>
     <h2 className={constructStyles.constr__title}>{orderNumber}</h2>
