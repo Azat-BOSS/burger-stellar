@@ -13,7 +13,7 @@ const Modal = ({children, state, setState}) => {
     }
     document.addEventListener("keydown", handleEscClose)
     return() => {
-      document.removeEventListener("keyup", handleEscClose)
+      document.removeEventListener("keydown", handleEscClose)
     }
   }, [setState])
 

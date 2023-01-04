@@ -59,3 +59,9 @@
   text-align: right;
   color: #f2f2f3;
 }
+
+.constructor__block__elements {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
